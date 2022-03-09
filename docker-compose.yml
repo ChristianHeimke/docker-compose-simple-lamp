@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  webserver:
+    build:
+      context: .
+    restart: 'always'
+    ports:
+      - "8080:80"
+    links:
+      - database
+    volumes:
+      - ./www:/var/www/html
+    environment:
+      MYSQL_ROOT_PASSWORD: lampstackbydocker
+
+  database:
+    image: mariadb
+    restart: 'always'
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db:/var/lib/mysql
+    environment:
+      MARIADB_ROOT_PASSWORD: lampstackbydocker
+
+  adminer:
+    image: adminer
+    restart: always
+    environment:
+      ADMINER_DEFAULT_SERVER: database
+      ADMINER_DESIGN: pappu687
+      MYSQL_ROOT_PASSWORD: lampstackbydocker
+    ports:
+      - 8081:8080

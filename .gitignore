@@ -1,0 +1,4 @@
+www/*
+!www/info.php
+db/*
+!db/.keepme
